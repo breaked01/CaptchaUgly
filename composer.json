@@ -1,8 +1,8 @@
 {
-    "name": "omranjamal/real-captcha",
-    "description": "Advanced Captcha generation library for PHP",
+    "name": "breaked01/captchaugly",
+    "description": "Old captcha generator library",
     "keywords": ["captcha","security","generation","ttf","fonts"],
-    "homepage": "http://omranjamal.github.io/RealCaptcha",
+    "homepage": "https://github.com/breaked01/CaptchaUgly",
     "license": "MIT",
     "authors": [
         {
