@@ -264,8 +264,10 @@ class RealCaptcha{
         private function randomText(&$settings=FALSE){
 
             //Check if user set custom random_length or use session default or Random length
-            $length = $settings && $settings["random_length"] ? $settings["random_length"] : $this->settings["random_length"] ? $this->settings["random_length"] : rand(5,9);
-
+            // $length = $settings && $settings["random_length"] ? $settings["random_length"] : $this->settings["random_length"] ? $this->settings["random_length"] : rand(5,9);
+            if((is_array($settings) && $settings['random_length']) || $this->settings['random_length']) {
+                $length = rand(5,9);
+            }
             //container
             $text = "";
 
