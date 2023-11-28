@@ -351,8 +351,9 @@ class RealCaptcha{
 
         //Set the Background Color
         imagefilledrectangle($canvas, 0, 0, $canvas_width, $canvas_height, $background);
-
-        $raw = str_split($text);
+        
+        $raw = mb_str_split($text);
+        // var_dump($text, $raw); exit();
         $i = 0;
         $cursor = $padding;
 
@@ -366,15 +367,15 @@ class RealCaptcha{
         }else{
             $sign = 1;
         }
-
-        while($i<strlen($text)){
+        $i = 0;
+        foreach($raw as $symbol){
             //Get Letter Location and rotation
             extract($this->xy_theta($cursor, $offset, $curve_intensity, $sign, $assumtion));
-
             //from the top
                 $y_coordinate = $canvas_height-(30/100)*$height+$y;
-                $letter = imagettftext($canvas, $font_size, $theta/* Rotation */, $cursor, $y_coordinate, imagecolorallocate($canvas, $settings["text_color"][0], $settings["text_color"][1], $settings["text_color"][2]), $font, $raw[$i] );
-                
+                $y_coordinate = intval($y_coordinate);
+                $letter = imagettftext($canvas, $font_size, $theta/* Rotation */, $cursor, $y_coordinate, imagecolorallocate($canvas, $settings["text_color"][0], $settings["text_color"][1], $settings["text_color"][2]), $font, $symbol );
+                 
                 if(!$letter){
                     return false;
                 }
@@ -384,7 +385,7 @@ class RealCaptcha{
                 if($i == 0){ //If 1st Letter
                     $up_left["x"] = $letter[0];
                     $up_left["y"] = $letter[7];
-                }elseif($i == (strlen($text)-1) ){ //If last letter
+                }elseif($i == (mb_strlen($text)-1) ){ //If last letter
                     $low_right["x"] = $letter[2];
                 }
 
@@ -591,7 +592,7 @@ class RealCaptcha{
 
         $i=0;
         foreach($finals as $final){
-            imagecopyresampled(
+            @imagecopyresampled(
                 $canvas,
                 $resources[$i]["image"],
                 $final["dst_x"],
@@ -606,7 +607,6 @@ class RealCaptcha{
 
             $i++;
         }
-
         return new realCaptchaOutput($canvas, $words);
     }
 }
