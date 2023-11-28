@@ -13,7 +13,7 @@ may be under a different Open Source, Commercial Friendly license. Never the les
 use the fonts and all their licenses allow redistribution and commercial use.
 */
 
-namespace omranjamal\RealCaptcha;
+namespace breaked01\RealCaptcha;
 
 class realCaptchaOutput{
     public $array = array();
